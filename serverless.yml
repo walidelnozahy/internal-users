@@ -1,0 +1,18 @@
+# serverless.yml
+
+name: mono
+stage: dev
+
+mono:
+  component: '@serverless/mono'
+  inputs:
+    name: real-estate-backend
+    description: My Mono App
+    region: us-east-1
+    memory: 128
+    timeout: 10
+    env:
+      USERS_TABLE: usersTable,
+    # the directory that contains the index.js file.
+    # If not provided, the default is the current working directory
+    # code: ./code

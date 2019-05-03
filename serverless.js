@@ -17,7 +17,8 @@ class RealEstateBackEnd extends Component {
 
     const awsDynamoDbUsers = await this.load('@serverless/aws-dynamodb', 'usersTable')
     const awsDynamoDbProjects = await this.load('@serverless/aws-dynamodb', 'projectsTable')
-    const awsLambda = await this.load('@serverless/aws-lambda')
+    // const awsLambda = await this.load('@serverless/aws-lambda')
+    const mono = await this.load('@serverless/mono')
 
     await awsDynamoDbUsers({
       name: usersTable
@@ -53,7 +54,7 @@ class RealEstateBackEnd extends Component {
     this.state.tokenSecret = tokenSecret
     await this.save()
 
-    await awsLambda({
+    await mono({
       name: 'real-estate-backend',
       code: './code',
       handler: 'index.run',
@@ -63,6 +64,16 @@ class RealEstateBackEnd extends Component {
         TOKEN_SECRET: tokenSecret
       }
     })
+    // await awsLambda({
+    //   name: 'real-estate-backend',
+    //   code: './code',
+    //   handler: 'index.run',
+    //   env: {
+    //     USERS_TABLE: usersTable,
+    //     PROJECTS_TABLE: usersTable,
+    //     TOKEN_SECRET: tokenSecret
+    //   }
+    // })
 
     this.cli.outputs({ userName, userPassword })
   }
@@ -70,10 +81,13 @@ class RealEstateBackEnd extends Component {
     this.cli.status('removing')
     const awsDynamoDbUsers = await this.load('@serverless/aws-dynamodb', 'usersTable')
     const awsDynamoDbProjects = await this.load('@serverless/aws-dynamodb', 'projectsTable')
-    const awsLambda = await this.load('@serverless/aws-lambda')
+    // const awsLambda = await this.load('@serverless/aws-lambda')
+    const mono = await this.load('@serverless/mono')
+
     await awsDynamoDbUsers.remove()
     await awsDynamoDbProjects.remove()
-    await awsLambda.remove()
+    // await awsLambda.remove()
+    await mono.remove()
   }
 }
 module.exports = RealEstateBackEnd

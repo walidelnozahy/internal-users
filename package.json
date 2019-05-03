@@ -12,6 +12,7 @@
   "author": "Serverless, Inc.",
   "license": "MIT",
   "dependencies": {
+    "@serverless/mono": "^0.1.0",
     "@serverless/aws-dynamodb": "^0.1.0",
     "@serverless/aws-lambda": "^0.1.1",
     "@serverless/components": "^0.1.0",
